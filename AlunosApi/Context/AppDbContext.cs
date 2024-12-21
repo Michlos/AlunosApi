@@ -6,11 +6,37 @@ namespace AlunosApi.Context
 {
     public class AppDbContext : DbContext
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options): base(options)
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
-            
+
         }
 
-        public DbSet<Aluno> Alunos{ get; set; }
+        public DbSet<Aluno> Alunos { get; set; }
+
+
+        //POPULANDO TABELA PARA HOMOLOGAÇÃO
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Aluno>().HasData(
+                new Aluno
+                {
+                    Id = 1,
+                    Nome = "Maria da Penha",
+                    Email = "mariapenha@yahoo.com",
+                    Idade = 23
+
+                },
+                new Aluno
+                {
+                    Id = 2,
+                    Nome = "Manuel Bueno",
+                    Email = "manuelbueno@yahoo.com",
+                    Idade = 22
+                }
+             );
+
+        }
     }
 }
